@@ -7,15 +7,16 @@ const app = express();
 const cors = require('cors')
 const auth = require('./auth')
 
-const port = 3000
+const PORT = process.env.PORT
+
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
 dbConnect()
 
-app.listen(port, ()=>{
-    console.log(`listening on ${port}`)
+app.listen(PORT, ()=>{
+    console.log(`listening on ${PORT}`)
 })
 
 
