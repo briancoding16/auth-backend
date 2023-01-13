@@ -53,7 +53,7 @@ app.post('/register', (req, res) => {
 })
 
 
-app.post('/login', auth, (req, res) => {
+app.post('/login', (req, res) => {
     const {email} = req.body
     console.log(email)
     User.findOne({email})
