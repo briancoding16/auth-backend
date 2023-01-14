@@ -15,6 +15,20 @@ app.use(express.urlencoded({extended: true}))
 
 dbConnect()
 
+// Curb Cores Error by adding a header here
+app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
+    );
+    res.setHeader(
+      "Access-Control-Allow-Methods",
+      "GET, POST, PUT, DELETE, PATCH, OPTIONS"
+    );
+    next();
+  });
+
 app.listen(PORT, ()=>{
     console.log(`listening on ${PORT}`)
     console.log('s')
@@ -26,6 +40,7 @@ app.post('/register', (req, res) => {
     bcrypt.hash(req.body.password, 10)
     .then((hashedPassword)=>{
         const user = new User({
+            name: req.body.name,
             email:req.body.email,
             password:hashedPassword
         })
@@ -54,7 +69,8 @@ app.post('/register', (req, res) => {
 
 
 app.post('/login', (req, res) => {
-    const {email} = req.body
+    console.log('ENTRO')
+    const {email, name} = req.body
     console.log(email)
     User.findOne({email})
     .then((user)=>{
@@ -77,6 +93,7 @@ app.post('/login', (req, res) => {
             res.status(200).send({
                 message:'Login successful',
                 email:user.email,
+                name: name,
                 token
             })
         }) 
