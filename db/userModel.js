@@ -19,6 +19,16 @@ const UserSchema = new mongoose.Schema({
     unique: false
    },
 
+   admin: {
+      type: Boolean,
+      default: true
+     },
+
+   inversion: {
+      type: Number,
+     },
+  
+
 })
 
 module.exports  = mongoose.model('User', UserSchema)

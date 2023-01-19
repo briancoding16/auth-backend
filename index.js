@@ -60,13 +60,13 @@ app.post('/register', (req, res) => {
         user.save()
         .then((result) => {
             res.status(201).send({
-                message: 'User Created successfully',
+                message: 'Usuario creado satisfactoriamente',
                 result,
             })
         })
         .catch((e) => {
             res.status(500).send({
-                message: 'Error creating user',
+                message: 'Error al crear el usuario',
                 e,
             })
         })
@@ -90,7 +90,7 @@ app.post('/login', (req, res) => {
         .then(passwordCheck => {
             if(!passwordCheck){
                 return res.status(400).send({
-                    message:'Password does not macht',
+                    message:'Credenciales incorrectas',
                     error
                 })
             }
@@ -103,7 +103,7 @@ app.post('/login', (req, res) => {
                 {expiresIn: '24h'}
             )
             res.status(200).send({
-                message:'Login successful',
+                message:'Cargando...',
                 email:user.email,
                 name: name,
                 token
@@ -111,14 +111,14 @@ app.post('/login', (req, res) => {
         }) 
         .catch((error) => {
             res.status(400).send({
-                message:'Passwords does not match',
+                message:'Password incorrecto',
                 error
             })
         })
     })
     .catch((error)=>{
         res.status(404).send({
-            message: 'Email not found',
+            message: 'Credenciales incorrectas',
             error
         })
     })
