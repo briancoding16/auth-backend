@@ -35,6 +35,19 @@ app.listen(PORT, ()=>{
 })
 
 
+app.get('/users', async (req, res)=>{
+    try {
+        const response = await User.find({})
+        const data = []
+        return res.send({
+            ok: true,
+            response 
+        })
+    } catch (error) {
+        console.log(error)
+    }
+})
+
 
 app.post('/register', (req, res) => {
     bcrypt.hash(req.body.password, 10)
@@ -69,7 +82,6 @@ app.post('/register', (req, res) => {
 
 
 app.post('/login', (req, res) => {
-    console.log('ENTRO')
     const {email, name} = req.body
     console.log(email)
     User.findOne({email})
